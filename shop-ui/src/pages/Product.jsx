@@ -54,7 +54,7 @@ const Filter = styled.div`
 const FilterTitle = styled.span`
   font-size: 20px;
   font-weight: 200;
-  margin-right: 10px ;
+  margin-right: 10px;
 `;
 
 const FilterColor = styled.div`
@@ -72,7 +72,7 @@ const FilterSize = styled.select`
 `;
 
 const FilterSizeOption = styled.option``;
-                           
+
 const AddContainer = styled.div`
   width: 75%;
   display: flex;
@@ -84,7 +84,7 @@ const AddContainer = styled.div`
 const AmountContainer = styled.div`
   display: flex;
   align-items: center;
-  font-weight: 700;  
+  font-weight: 700;
 `;
 
 const Amount = styled.span`
@@ -109,7 +109,7 @@ const Button = styled.button`
   }
 `;
 
-const Product = () => {
+const Product = () => {  
   return (
     <Container>
       <Navbar />
@@ -148,7 +148,7 @@ const Product = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-            <FilterTitle>Quantity</FilterTitle>
+              <FilterTitle>Quantity</FilterTitle>
               <Remove />
               <Amount>1</Amount>
               <Add />
