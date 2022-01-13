@@ -10,7 +10,7 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const Products = ({ cat, filters, sort }) => {
+const Products = ({ cat, filters, sort, setSort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -21,8 +21,9 @@ const Products = ({ cat, filters, sort }) => {
           cat
             ? `http://localhost:5000/api/products/?category=${cat}`
             : "http://localhost:5000/api/products"
-        );        
+        );
         setProducts(res.data);
+        // console.log(res.data)
       } catch (err) {}
     };
     getProducts();
@@ -40,14 +41,32 @@ const Products = ({ cat, filters, sort }) => {
   }, [cat, filters, products]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    if (sort === "newest") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      );
+    } else if (sort === "asc") {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => a.price - b.price)
+      );
+    } else {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a, b) => b.price - a.price)
+      );
+    }
+  }, [sort]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container>
-      {filteredProducts.map((item) => (
-        <Product item={item} key={item.id} />
-      ))}
+      {cat
+        ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
+        : products
+            .slice(0, 12)
+            .map((item) => <Product item={item} key={item.id} />)}
     </Container>
   );
 };
