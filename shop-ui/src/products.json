@@ -95,7 +95,7 @@
     "img": "https://media.endclothing.com/media/f_auto,q_auto:eco/prodmedia/media/catalog/product/1/2/12-11-2021_LL_36137-0026_1_1.jpg",
     "categories": ["women", "jackets"],
     "size": ["S", "M", "L", "XS"],
-    "color": ["white"],
+    "color": ["white", "blue"],
     "price": 125,
     "inStock": "true"
   },
