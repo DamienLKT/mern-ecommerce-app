@@ -2,6 +2,9 @@
 
 You will need to: 
 
+Tech Stack used: 
+MERN + Postman for api testing + stripe for payment + JWT
+
 npm install dependencies listed in package.json
 
 Frontend Dev:
