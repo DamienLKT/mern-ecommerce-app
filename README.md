@@ -1,9 +1,9 @@
 # mern-ecommerce-app
 
-You will need to: 
-
 Tech Stack used: 
 MERN + Postman for api testing + stripe for payment + JWT
+
+You will need to: 
 
 npm install dependencies listed in package.json
 
