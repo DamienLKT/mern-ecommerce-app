@@ -1,5 +1,5 @@
-import { Add, Remove } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { Add, Delete, Remove } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -8,6 +8,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { userRequest } from "../api/requestMethod";
 import { useNavigate } from "react-router-dom";
+import { removeProduct } from "../redux/cartRedux";
 
 const PUBLIC_KEY = process.env.REACT_APP_STRIPE;
 
@@ -97,6 +98,15 @@ const PriceDetail = styled.div`
   justify-content: center;
 `;
 
+const RemoveItem = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1.4);
+`;
+
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
@@ -153,9 +163,11 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart); //access redux store state
+  const cartQuantity = JSON.parse(localStorage.products).length;
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -166,13 +178,18 @@ const Cart = () => {
       try {
         const res = await userRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: cart.total *100,
+          amount: cart.total * 100,
         });
         navigate("/success", { stripeData: res.data, products: cart });
       } catch (err) {}
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, navigate, cart]);
+
+  const handleClick = (product) => {
+    //update cart to remove item
+    dispatch(removeProduct({ product }));
+  };
 
   return (
     <Container>
@@ -183,14 +200,14 @@ const Cart = () => {
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+            <TopText>Shopping Bag({cartQuantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map((product) => (
+            {cart.products?.map((product) => (
               <Product>
                 <ProductDetail>
                   <Image src={product.img} />
@@ -209,14 +226,20 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Add />
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}
                   </ProductPrice>
                 </PriceDetail>
+                <RemoveItem>
+                  <Delete
+                    onClick={() => handleClick(product)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </RemoveItem>
               </Product>
             ))}
             <Hr />
@@ -244,7 +267,9 @@ const Cart = () => {
               image="https://www.kindpng.com/picc/m/229-2299436_pepe-twitch-emotes-hd-png-download.png"
               billingAddress
               shippingAddress
-              description={`Your total is $${cart.total}`}
+              description={`Your total is $${
+                cart.total !== 0 ? cart.total : 0
+              }`}
               amount={cart.total * 100} //in cents
               token={onToken}
               stripeKey={PUBLIC_KEY}

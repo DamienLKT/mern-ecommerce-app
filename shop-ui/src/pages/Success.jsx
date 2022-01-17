@@ -7,6 +7,11 @@ const Success = () => {
   const location = useLocation();
   console.log(location);
 
+const clearLocalStorage = () => {
+  localStorage.removeItem("products");
+  localStorage.removeItem("total");
+}
+
   return (
     <div
       style={{
@@ -19,7 +24,7 @@ const Success = () => {
     >
       {`Successfull. Your order is being prepared...`}
       <Link to="/">
-        <button style={{ padding: 10, marginTop: 20, cursor:"pointer"}}>Go to Homepage</button>
+        <button onClick={clearLocalStorage} style={{ padding: 10, marginTop: 20, cursor:"pointer"}}>Go to Homepage</button>
       </Link>
     </div>
   );
