@@ -36,7 +36,7 @@ const cartSlice = createSlice({
       state.total = state.total.reduce((a, b) => a + b, 0);
       localStorage.setItem("products", JSON.stringify(state.products));
       localStorage.setItem("total", JSON.stringify(state.total));
-    },
+    },    
   },
 });
 

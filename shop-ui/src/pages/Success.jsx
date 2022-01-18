@@ -1,16 +1,17 @@
-import { useLocation, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { useEffect, useState } from "react";
 // import { useSelector } from "react-redux";
 // import { userRequest } from "../api/requestMethod";
 
 const Success = () => {
-  const location = useLocation();
-  console.log(location);
+  const navigate = useNavigate();
 
-const clearLocalStorage = () => {
-  localStorage.removeItem("products");
-  localStorage.removeItem("total");
-}
+  const clearAll = () => {
+    localStorage.removeItem("products");
+    localStorage.removeItem("total");
+    navigate("/");
+    window.location.reload();
+  };
 
   return (
     <div
@@ -23,9 +24,12 @@ const clearLocalStorage = () => {
       }}
     >
       {`Successfull. Your order is being prepared...`}
-      <Link to="/">
-        <button onClick={clearLocalStorage} style={{ padding: 10, marginTop: 20, cursor:"pointer"}}>Go to Homepage</button>
-      </Link>
+      <button
+        onClick={clearAll}
+        style={{ padding: 10, marginTop: 20, cursor: "pointer" }}
+      >
+        Go to Homepage
+      </button>
     </div>
   );
 };

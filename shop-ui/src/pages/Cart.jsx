@@ -1,4 +1,4 @@
-import { Add, Delete, Remove } from "@material-ui/icons";
+import { Delete } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
@@ -226,9 +226,7 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Remove />
-                    <ProductAmount>{product.quantity}</ProductAmount>
-                    <Add />
+                    <ProductAmount>Quantity: {product.quantity}</ProductAmount>
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}
