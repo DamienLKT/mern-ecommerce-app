@@ -1,18 +1,17 @@
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
-import Register from "./pages/Register";
+// import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
+import SignUp from "./pages/SignUp"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 const App = () => {  
   // const user = false;
   return (
-    <Router>
-      <ToastContainer/>
+    <Router>      
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
@@ -32,7 +31,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
       </Routes>
       <Routes>
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<SignUp />} />
       </Routes>
     </Router>
   );

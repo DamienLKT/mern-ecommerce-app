@@ -10,7 +10,10 @@ const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const stripeRoute = require("./routes/stripe");
 const cors = require("cors");
-
+const corsConfig = {
+  credentials: true,
+  origin: true,
+};
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -19,7 +22,7 @@ mongoose
     console.log(err);
   });
 
-app.use(cors());
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
