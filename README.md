@@ -1,7 +1,7 @@
 # mern-ecommerce-app
 
 Tech Stack used: 
-MERN + Postman for api testing + stripe for payment + JWT
+MERN + Postman for api testing + stripe for payment + JWT token
 
 You will need to: 
 
